@@ -1,0 +1,63 @@
+
+1º foi criado a extrutura de pasta em mvc
+
+2º foi criado o formCadastroAluno, o nosso formulario que ja esta sendo recuperado atraves do metodo 'POST' pelo nosso controller, CadastrarAlunoController.
+	- agora vamo criar as funcionalidades do meu controller para recuperar as informaões do formulario.
+
+	I- criando todas as variavei para recuperar os valores
+	II - criar o banco de dados com todos os funcionalidades do form,nome,cpf,email, etc.
+
+	pronto variaeis e banco criado.
+
+3° criar um arquivo AlunoDTO
+
+	I- Cria uma class AlunoDTO com meus atributos privado, ex: private $nome;
+	II Cria os 'Get' e 'Set' de cada atributo.
+	
+ pronto DTO feito.
+
+4º Agora vamos enviar nosso AlunoDTO para o controller, CadastrarAlunoController, atraves do require_once.
+	require_once '../dto/AlunoDTO.php';
+
+	I- agora abaixo da nossas variaveis vamos criar um novo objeto AlunoDTO, com nosso set para enviar os valores armazenados.
+	Para isso vamos utilizar um metodo, a partir da pasta dao.
+	
+	II- tudo que eu for cadastrar, alterar, excluir, vai ser atraves do alunoDAO.
+	E meus metodos vão ficar dentro de clienteDAO.
+
+	III - Iremos criar uma class cadastrarAluno, e uma função para isso. e essa função vai receber o parametro alunoDTO.
+	  
+	  função ->	function cadastrarAluno(AlunoDTO $AlunoDTO){
+
+   			}
+
+	 - $AlunoDTO, vai receber tudo que esta dentro da Class AlunoDTO, os get e set do DTO ,que iram ser manipulados dentro do DAO. 
+	 Ou seja estamos pegando todos os sets do DTO atraves do get na DAO.
+
+5º Agora vamos conectar com o banco de dados.
+
+	I - dentro de AlunoDAO, vamos usar : 
+
+	  $bd = new mysqli() .  A mysqli é o que faz a conexão com o banco de dados.
+
+	II - vamos criar uma solicitação atraves da query() que vamos mandar para o banco de dados.
+
+	  $sql = $bd->query
+
+	III - vamos inserir os valores no banco de dados no codigo -> $sql = $bd->query("insert into alunos values 
+              (nome = '$nome', cpf = '$cpf', email = '$email', datanasc = '$datanasc', curso = '$curso')");
+
+	      e retorna esses dados armazenados atraves do -> return $sql;
+
+
+	    - O codigo ficaria assim -> 	
+
+			//Conexão com BD
+
+       			$bd = new mysqli('localhost','root','','ensinoOnline');
+        		$sql = $bd->query("insert into alunos values(nome = '$nome', cpf = '$cpf', email = '$email', datanasc = '$datanasc', curso = '$curso')");
+
+     			return $sql;
+
+6 º Agora vamos criar um novo objeto de AlunoDAO em cadastrarAlunoController.  
+	
